@@ -1,0 +1,104 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: ai-audit-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-password}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-ai_audit}
+      TZ: Asia/Shanghai
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./java-backend/src/main/resources/db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    ports:
+      - "3307:3306"
+    networks:
+      - ai-audit-network
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -p$$MYSQL_ROOT_PASSWORD"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: ai-audit-redis
+    environment:
+      TZ: Asia/Shanghai
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-}
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - ai-audit-network
+    command: ["sh", "-c", "if [ -n \"$$REDIS_PASSWORD\" ]; then redis-server --requirepass $$REDIS_PASSWORD; else redis-server; fi"]
+    healthcheck:
+      test: ["CMD-SHELL", "if [ -n \"$$REDIS_PASSWORD\" ]; then redis-cli -a $$REDIS_PASSWORD ping; else redis-cli ping; fi"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  java-backend:
+    build:
+      context: ./java-backend
+      dockerfile: Dockerfile
+    container_name: ai-audit-backend
+    environment:
+      SERVER_PORT: 8080
+      DB_URL: jdbc:mysql://mysql:3306/${MYSQL_DATABASE:-ai_audit}?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+      DB_USERNAME: root
+      DB_PASSWORD: ${MYSQL_ROOT_PASSWORD:-password}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-}
+      REDIS_DATABASE: 0
+      JWT_SECRET: ${JWT_SECRET:-audit-jwt-secret-key-256-bits-minimum-length-required}
+      JWT_EXPIRATION: ${JWT_EXPIRATION:-86400000}
+      AI_SERVICE_URL: http://python-ai-service:8000
+      TZ: Asia/Shanghai
+    ports:
+      - "8080:8080"
+    networks:
+      - ai-audit-network
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/api/api/health"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+  python-ai-service:
+    build:
+      context: ./python-ai-service
+      dockerfile: Dockerfile
+    container_name: ai-audit-ai-service
+    environment:
+      TZ: Asia/Shanghai
+    ports:
+      - "8000:8000"
+    networks:
+      - ai-audit-network
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+
+volumes:
+  mysql_data:
+  redis_data:
+
+networks:
+  ai-audit-network:
+    driver: bridge

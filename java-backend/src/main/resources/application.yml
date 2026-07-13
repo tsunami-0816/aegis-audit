@@ -1,0 +1,75 @@
+server:
+  port: ${SERVER_PORT:8080}
+  servlet:
+    context-path: /api
+
+spring:
+  application:
+    name: ai-audit-backend
+
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:db/schema.sql
+      data-locations: classpath:db/data.sql
+
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/example_db?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 20
+      idle-timeout: 30000
+      connection-timeout: 30000
+      max-lifetime: 1800000
+
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+      database: ${REDIS_DATABASE:0}
+      timeout: 6000ms
+      lettuce:
+        pool:
+          max-active: 100
+          max-idle: 20
+          min-idle: 5
+          max-wait: -1ms
+
+jwt:
+  secret: ${JWT_SECRET:audit-jwt-secret-key-256-bits-minimum-length-required}
+  expiration: ${JWT_EXPIRATION:86400000}
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    call-setters-on-nulls: true
+  global-config:
+    db-config:
+      id-type: assign_id
+      table-underline: true
+
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
+    title: AI Content Audit API
+    description: AI内容审核平台接口文档
+    contact:
+      name: AI Audit Team
+      email: audit@ai.com
+
+ai:
+  service:
+    url: ${AI_SERVICE_URL:http://localhost:8000}
+    connect-timeout: 5000
+    read-timeout: 10000
+
+logging:
+  level:
+    com.ai.audit: debug
+    com.baomidou.mybatisplus: debug

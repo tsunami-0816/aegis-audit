@@ -1,0 +1,8 @@
+Java+Python 双栈 AI 业务后端系统
+适配岗位：Java&Python AI 开发工程师、后端开发工程师（AI 平台）
+项目核心内容
+做一个完整业务场景项目（比如智能工单系统、AI 内容审核平台）：
+Java 侧：用 Spring Boot 搭建完整后端，包含用户鉴权、业务逻辑、MySQL 数据存储、Redis 缓存、统一异常处理、Swagger 接口文档；
+Python 侧：封装 AI 能力（比如文本分类、大模型摘要、数据智能处理），提供 RPC/HTTP 接口给 Java 端调用；
+工程化：用 Docker 打包前后端服务，补充部署流程。
+补全的能力关键词：AI 工程化落地、Spring Boot 全栈后端、双栈协同、Docker 部署、Redis 缓存、业务系统迭代。
