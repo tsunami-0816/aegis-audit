@@ -86,30 +86,30 @@ cd ai-content-moderation-system
 # Copy environment variables
 cp .env.example .env
 
-# Start all services
+# Start all services (MySQL, Redis, Java Backend, Python AI Service)
 docker compose up -d
 
-# Build frontend
+# Start frontend development server
 cd frontend
 npm install
-npm run build
+npm run dev -- --host 0.0.0.0
 ```
 
 ### Services
 
 | Service | Port | Description |
 |---------|------|-------------|
-| Frontend | 5173 (dev) | React Development Server |
-| Java Backend | 8080 | Spring Boot API |
-| Python AI Service | 8000 | AI Content Moderation |
-| MySQL | 3307 | Database |
-| Redis | 6379 | Cache |
+| Frontend | 3000 (dev) | React Development Server |
+| Java Backend | 8081 | Spring Boot API |
+| Python AI Service | 8001 | AI Content Moderation |
+| MySQL | 3309 | Database |
+| Redis | 6380 | Cache |
 
 ### Access
 
-- **Frontend**: http://localhost:5173
-- **API Documentation**: http://localhost:8080/api/doc.html
-- **AI Service**: http://localhost:8000/docs
+- **Frontend**: http://localhost:3000
+- **API Documentation**: http://localhost:8081/api/doc.html
+- **AI Service**: http://localhost:8001/docs
 
 ## 🔐 Default Accounts
 

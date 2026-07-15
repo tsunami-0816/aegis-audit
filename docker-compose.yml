@@ -10,7 +10,7 @@ services:
       - mysql_data:/var/lib/mysql
       - ./java-backend/src/main/resources/db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
     ports:
-      - "3307:3306"
+      - "3309:3306"
     networks:
       - ai-audit-network
     healthcheck:
@@ -28,7 +28,7 @@ services:
     volumes:
       - redis_data:/data
     ports:
-      - "6379:6379"
+      - "6380:6379"
     networks:
       - ai-audit-network
     command: ["sh", "-c", "if [ -n \"$$REDIS_PASSWORD\" ]; then redis-server --requirepass $$REDIS_PASSWORD; else redis-server; fi"]
@@ -57,7 +57,7 @@ services:
       AI_SERVICE_URL: http://python-ai-service:8000
       TZ: Asia/Shanghai
     ports:
-      - "8080:8080"
+      - "8081:8080"
     networks:
       - ai-audit-network
     depends_on:
@@ -80,7 +80,7 @@ services:
     environment:
       TZ: Asia/Shanghai
     ports:
-      - "8000:8000"
+      - "8001:8000"
     networks:
       - ai-audit-network
     depends_on:
