@@ -20,10 +20,10 @@ Project3/
 
 | 服务名 | 容器名 | 端口 | 说明 |
 |--------|--------|------|------|
-| mysql | ai-audit-mysql | 3306 | MySQL数据库 |
-| redis | ai-audit-redis | 6379 | Redis缓存 |
-| java-backend | ai-audit-backend | 8080 | Java后端API |
-| python-ai-service | ai-audit-ai-service | 8000 | Python AI服务 |
+| mysql | aegis-audit-mysql | 3306 | MySQL数据库 |
+| redis | aegis-audit-redis | 6379 | Redis缓存 |
+| java-backend | aegis-audit-backend | 8080 | Java后端API |
+| python-ai-service | aegis-audit-ai-service | 8000 | Python AI服务 |
 
 ## 启动服务
 
@@ -108,7 +108,7 @@ cp .env.example .env
 
 ```env
 MYSQL_ROOT_PASSWORD=your_password
-MYSQL_DATABASE=ai_audit
+MYSQL_DATABASE=aegis_audit
 REDIS_PASSWORD=your_redis_password
 JWT_SECRET=your-jwt-secret-key
 JWT_EXPIRATION=86400000

@@ -1,10 +1,10 @@
 services:
   mysql:
     image: mysql:8.0
-    container_name: ai-audit-mysql
+    container_name: aegis-audit-mysql
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-password}
-      MYSQL_DATABASE: ${MYSQL_DATABASE:-ai_audit}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-aegis_audit}
       TZ: Asia/Shanghai
     volumes:
       - mysql_data:/var/lib/mysql
@@ -12,7 +12,7 @@ services:
     ports:
       - "3309:3306"
     networks:
-      - ai-audit-network
+      - aegis-audit-network
     healthcheck:
       test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -p$$MYSQL_ROOT_PASSWORD"]
       interval: 10s
@@ -21,7 +21,7 @@ services:
 
   redis:
     image: redis:7-alpine
-    container_name: ai-audit-redis
+    container_name: aegis-audit-redis
     environment:
       TZ: Asia/Shanghai
       REDIS_PASSWORD: ${REDIS_PASSWORD:-}
@@ -30,7 +30,7 @@ services:
     ports:
       - "6380:6379"
     networks:
-      - ai-audit-network
+      - aegis-audit-network
     command: ["sh", "-c", "if [ -n \"$$REDIS_PASSWORD\" ]; then redis-server --requirepass $$REDIS_PASSWORD; else redis-server; fi"]
     healthcheck:
       test: ["CMD-SHELL", "if [ -n \"$$REDIS_PASSWORD\" ]; then redis-cli -a $$REDIS_PASSWORD ping; else redis-cli ping; fi"]
@@ -42,10 +42,10 @@ services:
     build:
       context: ./java-backend
       dockerfile: Dockerfile
-    container_name: ai-audit-backend
+    container_name: aegis-audit-backend
     environment:
       SERVER_PORT: 8080
-      DB_URL: jdbc:mysql://mysql:3306/${MYSQL_DATABASE:-ai_audit}?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+      DB_URL: jdbc:mysql://mysql:3306/${MYSQL_DATABASE:-aegis_audit}?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
       DB_USERNAME: root
       DB_PASSWORD: ${MYSQL_ROOT_PASSWORD:-password}
       REDIS_HOST: redis
@@ -59,7 +59,7 @@ services:
     ports:
       - "8081:8080"
     networks:
-      - ai-audit-network
+      - aegis-audit-network
     depends_on:
       mysql:
         condition: service_healthy
@@ -76,13 +76,13 @@ services:
     build:
       context: ./python-ai-service
       dockerfile: Dockerfile
-    container_name: ai-audit-ai-service
+    container_name: aegis-audit-ai-service
     environment:
       TZ: Asia/Shanghai
     ports:
       - "8001:8000"
     networks:
-      - ai-audit-network
+      - aegis-audit-network
     depends_on:
       mysql:
         condition: service_healthy
@@ -100,5 +100,5 @@ volumes:
   redis_data:
 
 networks:
-  ai-audit-network:
+  aegis-audit-network:
     driver: bridge

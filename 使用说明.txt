@@ -1,0 +1,135 @@
+#  AI 内容审核系统 - 使用说明
+## 一、项目概述
+这是一个基于 Java + Python 双栈后端 的 AI 内容审核平台，主要功能包括：
+
+模块 			功能描述 
+用户管理 		注册、登录、编辑资料、密码重置 
+内容审核 		用户提交文本内容，AI 自动检测风险 
+工单管理 		管理员处理高/中风险工单 
+角色权限 		管理员/普通用户分离 
+数据仪表盘 		统计数据可视化展示
+
+## 二、环境要求
+- Docker & Docker Compose （必需，用于启动后端服务）
+- Node.js 18+ （用于前端开发）
+- 端口占用检查 ：确保 3000、8081、8001、3309、6380 端口未被占用
+## 三、启动步骤
+### 方式一：完整启动（推荐）
+# 1. 进入项目目录
+cd d:\lg\project\Project3
+
+# 2. 复制环境变量（首次启动）
+cp .env.example .env
+
+# 3. 启动后端服务（MySQL + Redis + Java + Python）
+docker compose up -d
+
+# 4. 启动前端开发服务器
+cd frontend
+npm install
+npm run dev -- --host 0.0.0.0
+### 方式二：单独启动（开发调试）
+# 只启动数据库
+docker compose up -d mysql redis
+
+# 启动 Python AI 服务
+cd python-ai-service
+pip install -r requirements.txt
+uvicorn app.main:app --host 0.0.0.0 --port 8000
+
+# 启动 Java 后端
+cd java-backend
+mvn spring-boot:run
+
+# 启动前端
+cd frontend
+npm run dev -- --host 0.0.0.0
+## 四、服务访问地址
+服务 地址 说明 
+前端 		http://localhost:3000 						用户界面 
+Java 后端 	http://localhost:8081			 			API 服务 
+AI 服务文档 	http://localhost:8001/docs 				Swagger 文档 
+Java API 文档 http://localhost:8081/api/doc.html 		Knife4j 文档 
+MySQL 		localhost:3309 							数据库 
+Redis		localhost:6380 							缓存
+
+## 五、默认账号
+用户名 		密码 		角色 		权限 
+admin 		admin 		ADMIN 		查看所有内容、处理工单 
+user			user123 		USER 		提交内容、查看自己的审核结果
+
+## 六、功能模块使用说明
+### 1. 登录与注册
+- 访问地址 ： http://localhost:3000
+- 登录 ：输入用户名和密码，点击「登录」
+- 注册 ：点击「立即注册」，填写用户名、密码、角色（普通用户/管理员）
+### 2. 提交内容审核（普通用户）
+1. 登录后点击左侧菜单「内容提交」
+2. 在文本框中输入需要审核的内容
+3. 点击「提交审核」
+4. 系统会自动调用 AI 服务进行风险检测
+### 3. AI 审核风险类型
+风险类型 		检测内容 			示例关键词
+色情内容 		低俗、色情相关 		色情、裸体、做爱、AV
+暴力内容 		暴力、血腥相关 		暴力、杀人、武器、爆炸 
+广告推广 		营销、推广信息 		广告、推广、购买、微信 
+政治敏感 		敏感政治内容 			反动、分裂、领导人
+
+### 4. 风险等级说明
+等级 标识 处理方式 
+低风险 		LOW 				自动通过 
+中风险 		MEDIUM 			进入工单，等待管理员审核 
+高风险 		HIGH 				进入工单，等待管理员审核
+
+### 5. 工单管理（管理员）
+1. 使用管理员账号登录
+2. 点击左侧菜单「工单管理」查看待审核工单
+3. 点击工单进入详情页
+4. 选择「通过」或「拒绝」并填写审核意见
+5. 提交审核结果
+### 6. 仪表盘
+- 普通用户 ：查看自己的提交记录和审核结果
+- 管理员 ：查看平台统计数据（总提交数、待审核数、各风险等级分布）
+### 7. 个人资料
+- 点击右上角头像 → 「个人资料」
+- 可以修改用户名、密码
+## 七、常见问题
+
+## 八、Docker Compose 常用命令
+# 查看服务状态
+docker compose ps
+
+# 查看日志
+docker compose logs -f java-backend
+docker compose logs -f python-ai-service
+
+# 停止服务
+docker compose down
+
+# 重新构建并启动
+docker compose up -d --build
+
+# 重启单个服务
+docker compose restart java-backend
+## 九、核心 API 接口
+### 认证接口
+方法 			路径 					说明 
+POST 			/api/auth/login 			用户登录
+POST 			/api/auth/register		 用户注册 
+PUT				/api/auth/profile			 更新资料
+
+### 内容接口
+方法 			路径 						说明 
+POST 			/api/content/submit 			提交内容审核 
+GET 			/api/content/list 				获取内容列表
+
+### 工单接口
+方法 			路径 							说明 
+GET 			/api/workorder 					获取工单列表（管理员） 
+POST 			/api/workorder/{id}/review 		审核工单
+
+## 十、注意事项
+1. 端口冲突 ：确保本地未占用 3000、8081、8001、3309、6380 端口
+2. 首次启动 ：MySQL 初始化需要时间，Java 后端会自动重试连接
+3. 数据持久化 ：MySQL 和 Redis 数据存储在 Docker 卷中，重启不会丢失
+4. 环境变量 ：修改 .env 后需重启容器生效

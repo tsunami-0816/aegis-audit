@@ -1,11 +1,11 @@
 server:
-  port: ${SERVER_PORT:8080}
+  port: ${SERVER_PORT:8081}
   servlet:
     context-path: /api
 
 spring:
   application:
-    name: ai-audit-backend
+    name: aegis-audit-backend
 
   sql:
     init:
@@ -57,10 +57,10 @@ knife4j:
   enable: true
   setting:
     language: zh_cn
-    title: AI Content Audit API
+    title: AegisAudit API
     description: AI内容审核平台接口文档
     contact:
-      name: AI Audit Team
+      name: AegisAudit Team
       email: audit@ai.com
 
 ai:
@@ -71,5 +71,5 @@ ai:
 
 logging:
   level:
-    com.ai.audit: debug
+    com.aegis.audit: debug
     com.baomidou.mybatisplus: debug

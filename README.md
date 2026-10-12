@@ -1,4 +1,4 @@
-# AI Content Moderation System
+# AegisAudit
 
 基于 Java + Python 双栈后端的 AI 内容审核平台，提供用户内容提交、AI 智能审核、工单管理等功能。
 
@@ -41,7 +41,7 @@
 ## 📁 Project Structure
 
 ```
-ai-content-moderation-system/
+aegis-audit/
 ├── frontend/                 # React Frontend
 │   ├── src/
 │   │   ├── pages/           # Page Components
@@ -80,8 +80,8 @@ ai-content-moderation-system/
 
 ```bash
 # Clone the repository
-git clone https://github.com/tsunami-0816/ai-content-moderation-system.git
-cd ai-content-moderation-system
+git clone https://github.com/tsunami-0816/aegis-audit.git
+cd aegis-audit
 
 # Copy environment variables
 cp .env.example .env

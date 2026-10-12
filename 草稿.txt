@@ -1,0 +1,81 @@
+PS C:\Users\25399> cd D:\lg\project\Project3\java-backend
+PS D:\lg\project\Project3\java-backend> mvn spring-boot:run
+[INFO] Scanning for projects...
+[INFO]
+[INFO] -------------------< com.aegis.audit:aegis-audit-backend >--------------------
+[INFO] Building aegis-audit-backend 1.0.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] >>> spring-boot:3.2.5:run (default-cli) > test-compile @ aegis-audit-backend >>>
+[INFO]
+[INFO] --- resources:3.3.1:resources (default-resources) @ aegis-audit-backend ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO]
+[INFO] --- compiler:3.11.0:compile (default-compile) @ aegis-audit-backend ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO]
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ aegis-audit-backend ---
+[INFO] skip non existing resourceDirectory D:\lg\project\Project3\java-backend\src\test\resources
+[INFO]
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ aegis-audit-backend ---
+[INFO] No sources to compile
+[INFO]
+[INFO] <<< spring-boot:3.2.5:run (default-cli) < test-compile @ aegis-audit-backend <<<
+[INFO]
+[INFO]
+[INFO] --- spring-boot:3.2.5:run (default-cli) @ aegis-audit-backend ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.5)
+
+2026-07-12T22:12:35.168+08:00  INFO 25768 --- [aegis-audit-backend] [           main] com.aegis.audit.AuditApplication            : Starting AuditApplication using Java 17.0.19 with PID 25768 (D:\lg\project\Project3\java-backend\target\classes started by 25399 in D:\lg\project\Project3\java-backend)
+2026-07-12T22:12:35.169+08:00 DEBUG 25768 --- [aegis-audit-backend] [           main] com.aegis.audit.AuditApplication            : Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-07-12T22:12:35.170+08:00  INFO 25768 --- [aegis-audit-backend] [           main] com.aegis.audit.AuditApplication            : No active profile set, falling back to 1 default profile: "default"
+2026-07-12T22:12:35.852+08:00  INFO 25768 --- [aegis-audit-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-07-12T22:12:35.854+08:00  INFO 25768 --- [aegis-audit-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-07-12T22:12:35.884+08:00  INFO 25768 --- [aegis-audit-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 16 ms. Found 0 Redis repository interfaces.
+2026-07-12T22:12:35.966+08:00  WARN 25768 --- [aegis-audit-backend] [           main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: java.lang.IllegalArgumentException: Invalid value type for attribute 'factoryBeanObjectType': java.lang.String
+2026-07-12T22:12:35.973+08:00  INFO 25768 --- [aegis-audit-backend] [           main] .s.b.a.l.ConditionEvaluationReportLogger :
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-07-12T22:12:35.985+08:00 ERROR 25768 --- [aegis-audit-backend] [           main] o.s.boot.SpringApplication               : Application run failed
+
+java.lang.IllegalArgumentException: Invalid value type for attribute 'factoryBeanObjectType': java.lang.String
+        at org.springframework.beans.factory.support.FactoryBeanRegistrySupport.getTypeForFactoryBeanFromAttributes(FactoryBeanRegistrySupport.java:86) ~[spring-beans-6.1.6.jar:6.1.6]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.getTypeForFactoryBean(AbstractAutowireCapableBeanFactory.java:837) ~[spring-beans-6.1.6.jar:6.1.6]
+        at org.springframework.beans.factory.support.AbstractBeanFactory.isTypeMatch(AbstractBeanFactory.java:652) ~[spring-beans-6.1.6.jar:6.1.6]
+        at org.springframework.beans.factory.support.DefaultListableBeanFactory.doGetBeanNamesForType(DefaultListableBeanFactory.java:575) ~[spring-beans-6.1.6.jar:6.1.6]
+        at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeanNamesForType(DefaultListableBeanFactory.java:534) ~[spring-beans-6.1.6.jar:6.1.6]
+        at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:138) ~[spring-context-6.1.6.jar:6.1.6]
+        at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:788) ~[spring-context-6.1.6.jar:6.1.6]
+        at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:606) ~[spring-context-6.1.6.jar:6.1.6]
+        at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.2.5.jar:3.2.5]
+        at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-3.2.5.jar:3.2.5]
+        at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) ~[spring-boot-3.2.5.jar:3.2.5]
+        at org.springframework.boot.SpringApplication.run(SpringApplication.java:334) ~[spring-boot-3.2.5.jar:3.2.5]
+        at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354) ~[spring-boot-3.2.5.jar:3.2.5]
+        at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343) ~[spring-boot-3.2.5.jar:3.2.5]
+        at com.aegis.audit.AuditApplication.main(AuditApplication.java:10) ~[classes/:na]
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  8.121 s
+[INFO] Finished at: 2026-07-12T22:12:36+08:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:3.2.5:run (default-cli) on project aegis-audit-backend: Process terminated with exit code: 1 -> [Help 1]
+[ERROR]
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR]
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
+PS D:\lg\project\Project3\java-backend>
