@@ -16,7 +16,7 @@ public class Knife4jConfig {
                 .info(new Info()
                         .title("AegisAudit API")
                         .version("1.0.0")
-                        .description("AI内容审核平台接口文档")
+                        .description("AegisAudit接口文档")
                         .contact(new Contact()
                                 .name("AegisAudit Team")
                                 .email("audit@ai.com"))

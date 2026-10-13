@@ -58,7 +58,7 @@ knife4j:
   setting:
     language: zh_cn
     title: AegisAudit API
-    description: AI内容审核平台接口文档
+    description: AegisAudit接口文档
     contact:
       name: AegisAudit Team
       email: audit@ai.com

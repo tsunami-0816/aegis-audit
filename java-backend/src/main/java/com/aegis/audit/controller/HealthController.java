@@ -21,7 +21,7 @@ public class HealthController {
     @GetMapping("/")
     @Operation(summary = "服务首页", description = "服务欢迎页面")
     public Result<String> index() {
-        return Result.success("AI Content Audit Platform is running", "OK");
+        return Result.success("AegisAudit is running", "OK");
     }
 
 }

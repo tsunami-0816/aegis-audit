@@ -1,4 +1,4 @@
-# AI内容审核平台 - Docker部署指南
+# AegisAudit - Docker部署指南
 
 ## 环境要求
 

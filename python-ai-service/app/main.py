@@ -6,8 +6,8 @@ from app.api.health import router as health_router
 from app.api.ai import router as ai_router
 
 app = FastAPI(
-    title="AI Content Audit Service",
-    description="AI能力服务 - 内容审核平台",
+    title="AegisAudit AI Service",
+    description="AegisAudit AI 能力服务",
     version="1.0.0",
     docs_url="/docs",
     redoc_url="/redoc"
@@ -28,7 +28,7 @@ app.include_router(ai_router)
 async def root():
     return {
         "code": 200,
-        "message": "AI Content Audit Service is running",
+        "message": "AegisAudit AI Service is running",
         "data": None
     }
 
@@ -36,7 +36,7 @@ async def root():
 async def api_root():
     return {
         "code": 200,
-        "message": "AI Content Audit Service API",
+        "message": "AegisAudit AI Service API",
         "data": {
             "endpoints": [
                 "/api/health",

@@ -9,7 +9,7 @@ public class RootController {
 
     @GetMapping("/")
     public Result<String> root() {
-        return Result.success("AI Content Audit Platform is running", "OK");
+        return Result.success("AegisAudit is running", "OK");
     }
 
 }

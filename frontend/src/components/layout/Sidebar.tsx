@@ -26,7 +26,7 @@ export const Sidebar = () => {
   return (
     <aside className="fixed left-0 top-0 z-40 h-screen w-64 border-r border-gray-200 bg-gray-50">
       <div className="flex h-16 items-center justify-center border-b border-gray-200 bg-gradient-to-r from-blue-600 to-indigo-600">
-        <h1 className="text-xl font-bold text-white">AI审核平台</h1>
+        <h1 className="text-xl font-bold text-white">AegisAudit</h1>
       </div>
       
       <nav className="space-y-1 p-4">

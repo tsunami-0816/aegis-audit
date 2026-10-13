@@ -56,7 +56,7 @@ export const Register = () => {
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-r from-green-500 to-emerald-600 mb-4 shadow-lg">
             <UserPlus className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">AI内容审核平台</h1>
+          <h1 className="text-2xl font-bold text-gray-900">AegisAudit</h1>
           <p className="text-gray-500 mt-2">创建新账户</p>
         </div>
 
